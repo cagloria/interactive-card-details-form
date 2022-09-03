@@ -16,7 +16,9 @@ export default function CardForm() {
             />
 
             <fieldset>
-                <legend>Exp. Date (MM/YY)</legend>
+                <legend aria-label="Expiration Date (MM/YY)">
+                    Exp. Date (MM/YY)
+                </legend>
                 <input
                     id="exp-date-month"
                     type="number"
