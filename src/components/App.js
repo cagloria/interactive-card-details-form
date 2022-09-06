@@ -7,18 +7,17 @@ import CardBack from "./CardBack";
 
 const CardSection = styled.section`
     background-color: ${colors.primary};
-    color: ${colors.lightText};
-    height: 34%;
+    color: ${colors.white};
+    height: 240px;
 `;
 
 const FormSection = styled.section`
-    flex: 1;
+    padding: 91px 23px 30px;
 `;
 
 const Main = styled.main`
     display: flex;
     flex-direction: column-reverse;
-    height: 100%;
 `;
 
 export default function App() {

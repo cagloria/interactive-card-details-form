@@ -1,42 +1,133 @@
+import styled from "styled-components";
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+`;
+
+const ExpDateCVCContainer = styled.div`
+    display: flex;
+    column-gap: 10px;
+    row-gap: 21px;
+    flex-wrap: wrap;
+`;
+
+const ExpFieldset = styled.fieldset`
+    display: flex;
+    column-gap: 8px;
+
+    select[name="exp-date-month"] {
+        padding: 10px 6px 10px 11px;
+    }
+
+    select[name="exp-date-year"] {
+        padding: 10px 15px 10px 11px;
+    }
+`;
+
+const CVCLabel = styled.label`
+    padding-bottom: 0;
+    width: 0;
+    min-width: 115px;
+    flex-grow: 1;
+`;
+
+const SubmitButton = styled.button`
+    margin-top: 6px;
+`;
+
 export default function CardForm() {
+    function createExpMonthOptions() {
+        let months = [];
+        for (let i = 1; i < 13; i++) {
+            if (i < 10) {
+                months.push(`0${i}`);
+            } else {
+                months.push(`${i}`);
+            }
+        }
+
+        return months;
+    }
+
+    function createExpYearOptions() {
+        const d = new Date();
+        let currentYear = `${d.getFullYear()}`;
+        let years = [currentYear.slice(2)];
+        for (let i = 1; i < 5; i++) {
+            const year = `${d.getFullYear() + i}`;
+            years.push(year.slice(2));
+        }
+        return years;
+    }
+
     return (
-        <form>
-            <label htmlFor="card-name">Cardholder Name</label>
-            <input
-                id="card-name"
-                type="text"
-                placeholder="e.g. Jane Appleseed"
-            />
+        <Form>
+            <label>
+                Cardholder Name
+                <input type="text" placeholder="e.g. Jane Appleseed" required />
+            </label>
 
-            <label htmlFor="card-number">Card Number</label>
-            <input
-                id="card-number"
-                type="text"
-                placeholder="e.g. 1234 5678 9123 0000"
-            />
-
-            <fieldset>
-                <legend aria-label="Expiration Date (MM/YY)">
-                    Exp. Date (MM/YY)
-                </legend>
+            <label>
+                Card Number
                 <input
-                    id="exp-date-month"
-                    type="number"
-                    placeholder="MM"
-                    aria-label="Month"
+                    type="text"
+                    placeholder="e.g. 1234 5678 9123 0000"
+                    required
                 />
-                <input
-                    id="exp-date-year"
-                    type="number"
-                    placeholder="YY"
-                    aria-label="Year"
-                />
-            </fieldset>
+            </label>
+            <ExpDateCVCContainer>
+                <ExpFieldset>
+                    <legend aria-label="Expiration Date (MM/YY)">
+                        Exp. Date (MM/YY)
+                    </legend>
+                    <select
+                        name="exp-date-month"
+                        placeholder="MM"
+                        aria-label="Month"
+                        required
+                        defaultValue=""
+                    >
+                        <option value="" disabled>
+                            MM
+                        </option>
+                        {createExpMonthOptions().map((val) => (
+                            <option value={val} key={val}>
+                                {val}
+                            </option>
+                        ))}
+                    </select>
+                    <select
+                        name="exp-date-year"
+                        placeholder="YY"
+                        aria-label="Year"
+                        required
+                        defaultValue=""
+                    >
+                        <option value="" disabled key="default">
+                            YY
+                        </option>
+                        {createExpYearOptions().map((val) => (
+                            <option value={val} key={val}>
+                                {val}
+                            </option>
+                        ))}
+                    </select>
+                </ExpFieldset>
 
-            <label htmlFor="card-cvc">CVC</label>
-            <input id="card-cvc" type="number" placeholder="e.g. 123" />
+                <CVCLabel>
+                    CVC
+                    <input
+                        id="card-cvc"
+                        type="number"
+                        placeholder="e.g. 123"
+                        required
+                    />
+                </CVCLabel>
+            </ExpDateCVCContainer>
 
-            <button type="submit">Confirm</button>
-        </form>
+            <SubmitButton type="submit">Confirm</SubmitButton>
+        </Form>
     );
 }

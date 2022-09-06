@@ -9,8 +9,8 @@ const LogoRow = styled.div`
 
 const NumberRow = styled.div`
     flex: 1;
-    font-size: 1.15rem;
-    padding-top: 32px;
+    font-size: 1.14rem;
+    padding-top: 34px;
     letter-spacing: 2px;
 `;
 
@@ -19,8 +19,9 @@ const DetailsRow = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 0.70rem;
-    padding-top: 14px;
+    font-size: 0.55rem;
+    letter-spacing: 0.08rem;
+    padding-top: 16px;
     text-transform: uppercase;
 `;
 

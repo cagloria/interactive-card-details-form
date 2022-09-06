@@ -2,6 +2,8 @@
 
 ![Design preview for the Interactive card details form coding challenge](./desktop-preview.jpg)
 
+<p align="center">⚠ This project is in development ⚠</p>
+
 This is a solution to the [Interactive card details form challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-card-details-form-XpS8cKZDWw). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
@@ -11,7 +13,6 @@ This is a solution to the [Interactive card details form challenge on Frontend M
 -   [My Process](#my-process)
     -   [Built With](#built-with)
     -   [Getting Started with Create React App](#getting-started-with-create-react-app)
--   [Author](#author)
 -   [Available Scripts](#available-scripts)
     -   [npm start](#npm-start)
     -   [npm test](#npm-test)
@@ -47,10 +48,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Author
-
--   Website - [C.A. Gloria](https://cagloria.github.io/)
 
 ## Available Scripts
 

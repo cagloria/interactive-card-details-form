@@ -19,9 +19,9 @@ const Card = styled.div`
 
     p {
         position: absolute;
-        right: 39px;
-        top: 61px;
-        font-size: 0.6rem;
+        right: 37px;
+        top: 64px;
+        font-size: 0.5rem;
         text-align: right;
     }
 `;
