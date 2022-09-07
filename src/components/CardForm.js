@@ -89,7 +89,7 @@ export default function CardForm() {
                         required
                         defaultValue=""
                     >
-                        <option value="" disabled>
+                        <option value="" disabled hidden key="default">
                             MM
                         </option>
                         {createExpMonthOptions().map((val) => (
@@ -105,7 +105,7 @@ export default function CardForm() {
                         required
                         defaultValue=""
                     >
-                        <option value="" disabled key="default">
+                        <option value="" disabled hidden key="default">
                             YY
                         </option>
                         {createExpYearOptions().map((val) => (

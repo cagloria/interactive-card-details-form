@@ -6,7 +6,7 @@ export const colors = {
     tertiary: "#600594",
     white: "#ffffff",
     grayLight: "#CBCBCB",
-    gray: "##8e8593",
+    gray: "#8e8593",
     black: "#21092f",
 };
 
@@ -60,7 +60,7 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 1.13rem;
         color: ${colors.grayLight};
 
-        option:not([disabled]) {
+        option {
             color: ${colors.black};
         }
     }
@@ -88,5 +88,18 @@ export const GlobalStyle = createGlobalStyle`
         color: ${colors.white};
         font-family: "Space Grotesk", sans-serif;
         font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .style-link-as-button {
+        text-decoration: none;
+        border-radius: 10px;
+        background-color: ${colors.primary};
+        padding: 17px 16px;
+        color: ${colors.white};
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        text-align: center;
     }
 `;

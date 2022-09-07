@@ -3,7 +3,7 @@ import { colors, GlobalStyle } from "./Theme";
 import CardForm from "./CardForm";
 import CardFront from "./CardFront";
 import CardBack from "./CardBack";
-// import SubmissionPage from "./SubmissionPage";
+import SubmissionPage from "./SubmissionPage";
 
 const CardSection = styled.section`
     background-color: ${colors.primary};
@@ -26,7 +26,7 @@ export default function App() {
             <GlobalStyle />
             <Main>
                 <FormSection>
-                    <CardForm />
+                    <SubmissionPage />
                 </FormSection>
                 <CardSection>
                     <CardFront />
