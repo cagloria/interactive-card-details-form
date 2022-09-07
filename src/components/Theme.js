@@ -48,15 +48,15 @@ export const GlobalStyle = createGlobalStyle`
 
     input,
     select {
-        margin-top: 9px;
-        padding: 11px 16px;
+        margin-top: 8px;
+        padding: 10px 16px;
         border: 1px solid ${colors.grayLight};
         border-radius: 10px;
         font-size: 1.13rem;
+        font-family: 'Space Grotesk', sans-serif;
     }
 
     select {
-        font-family: "Space Grotesk", sans-serif;
         font-size: 1.13rem;
         color: ${colors.grayLight};
 
@@ -67,7 +67,6 @@ export const GlobalStyle = createGlobalStyle`
 
     input {
         &::placeholder {
-            font-family: "Space Grotesk", sans-serif;
             color: ${colors.grayLight};
             text-transform: none;
             font-size: 1.13rem;
@@ -97,7 +96,6 @@ export const GlobalStyle = createGlobalStyle`
         background-color: ${colors.primary};
         padding: 17px 16px;
         color: ${colors.white};
-        font-family: "Space Grotesk", sans-serif;
         font-size: 1rem;
         letter-spacing: 1px;
         text-align: center;
