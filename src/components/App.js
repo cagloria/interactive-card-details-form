@@ -9,10 +9,24 @@ const CardSection = styled.section`
     background-color: ${colors.primary};
     color: ${colors.white};
     height: 240px;
+
+    @media only screen and (min-width: 600px) {
+        height: 300px;
+    }
 `;
 
 const FormSection = styled.section`
-    padding: 91px 23px 30px;
+    padding: 91px 6.15vw 40px;
+
+    @media screen and (min-width: 426px) {
+        display: flex;
+        justify-content: center;
+
+        > * {
+            flex-grow: 1;
+            max-width: 380px;
+        }
+    }
 `;
 
 const Main = styled.main`
@@ -26,7 +40,7 @@ export default function App() {
             <GlobalStyle />
             <Main>
                 <FormSection>
-                    <SubmissionPage />
+                    <CardForm />
                 </FormSection>
                 <CardSection>
                     <CardFront />

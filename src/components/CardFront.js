@@ -12,6 +12,16 @@ const NumberRow = styled.div`
     font-size: 1.14rem;
     padding-top: 34px;
     letter-spacing: 2px;
+
+    @media screen and (max-width: 300px) {
+        padding-top: 20px;
+        font-size: 0.8rem;
+    }
+
+    @media screen and (min-width: 600px) {
+        font-size: 1.3rem;
+        padding-top: 48px;
+    }
 `;
 
 const DetailsRow = styled.div`
@@ -23,6 +33,11 @@ const DetailsRow = styled.div`
     letter-spacing: 0.08rem;
     padding-top: 16px;
     text-transform: uppercase;
+
+    @media screen and (min-width: 600px) {
+        padding-top: 20px;
+        font-size: 0.8rem;
+    }
 `;
 
 const Card = styled.div`
@@ -31,11 +46,10 @@ const Card = styled.div`
     top: 126px;
     left: 4.2vw;
     width: 286px;
-    height: 156px;
+    height: 157px;
     border-radius: 6px;
     background-color: ${colors.primary};
     background-image: url(${cardFrontBG});
-    background-position: center 25%;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -44,6 +58,20 @@ const Card = styled.div`
 
     p {
         margin: 0;
+    }
+
+    @media screen and (max-width: 300px) {
+        top: 150px;
+        left: 3vw;
+        width: 234px;
+        height: 129px;
+    }
+
+    @media screen and (min-width: 600px) {
+        top: 147px;
+        left: 13vw;
+        width: 333px;
+        height: 184px;
     }
 `;
 
