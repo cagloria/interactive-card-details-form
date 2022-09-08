@@ -5,6 +5,13 @@ import logo from "../assets/card-logo.svg";
 
 const LogoRow = styled.div`
     flex: 1;
+
+    @media screen and (min-width: 1300px) {
+        img {
+            width: 84px;
+            height: 47px;
+        }
+    }
 `;
 
 const NumberRow = styled.div`
@@ -13,14 +20,19 @@ const NumberRow = styled.div`
     padding-top: 34px;
     letter-spacing: 2px;
 
-    @media screen and (max-width: 300px) {
+    @media screen and (max-width: 320px) {
         padding-top: 20px;
         font-size: 0.8rem;
     }
 
     @media screen and (min-width: 600px) {
-        font-size: 1.3rem;
         padding-top: 48px;
+        font-size: 1.3rem;
+    }
+
+    @media screen and (min-width: 1300px) {
+        padding-top: 61px;
+        font-size: 1.89rem;
     }
 `;
 
@@ -37,6 +49,11 @@ const DetailsRow = styled.div`
     @media screen and (min-width: 600px) {
         padding-top: 20px;
         font-size: 0.8rem;
+    }
+
+    @media screen and (min-width: 1300px) {
+        padding-top: 21px;
+        font-size: 0.95rem;
     }
 `;
 
@@ -60,7 +77,7 @@ const Card = styled.div`
         margin: 0;
     }
 
-    @media screen and (max-width: 300px) {
+    @media screen and (max-width: 320px) {
         top: 150px;
         left: 3vw;
         width: 234px;
@@ -72,6 +89,24 @@ const Card = styled.div`
         left: 13vw;
         width: 333px;
         height: 184px;
+        border-radius: 8px;
+    }
+
+    @media screen and (min-width: 768px) {
+        left: 20vw;
+    }
+
+    @media screen and (min-width: 1024px) {
+        left: 29vw;
+    }
+
+    @media screen and (min-width: 1300px) {
+        top: 20.8vh;
+        left: 11.4vw;
+        width: 447px;
+        height: 245px;
+        border-radius: 12px;
+        padding: 28px 32px;
     }
 `;
 

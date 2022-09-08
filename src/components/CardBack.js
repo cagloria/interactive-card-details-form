@@ -21,7 +21,7 @@ const Card = styled.div`
         font-size: 0.5rem;
         text-align: right;
 
-        @media screen and (max-width: 300px) {
+        @media screen and (max-width: 320px) {
             right: 30px;
             top: 50px;
         }
@@ -30,9 +30,15 @@ const Card = styled.div`
             top: 72px;
             font-size: 0.7rem;
         }
+
+        @media screen and (min-width: 1300px) {
+            top: 100px;
+            right: 58px;
+            font-size: 0.8rem;
+        }
     }
 
-    @media screen and (max-width: 300px) {
+    @media screen and (max-width: 320px) {
         top: 40px;
         right: 4vw;
         width: 234px;
@@ -44,6 +50,24 @@ const Card = styled.div`
         right: 12vw;
         width: 333px;
         height: 184px;
+        border-radius: 8px;
+    }
+
+    @media screen and (min-width: 768px) {
+        right: 17vw;
+    }
+
+    @media screen and (min-width: 1024px) {
+        right: 23vw;
+    }
+
+    @media screen and (min-width: 1300px) {
+        top: 52vh;
+        right: unset;
+        left: 17.9vw;
+        width: 447px;
+        height: 245px;
+        border-radius: 12px;
     }
 `;
 

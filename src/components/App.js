@@ -13,12 +13,17 @@ const CardSection = styled.section`
     @media only screen and (min-width: 600px) {
         height: 300px;
     }
+
+    @media screen and (min-width: 1300px) {
+        height: 100%;
+        width: 33.5%;
+    }
 `;
 
 const FormSection = styled.section`
     padding: 91px 6.15vw 40px;
 
-    @media screen and (min-width: 426px) {
+    @media screen and (min-width: 425px) {
         display: flex;
         justify-content: center;
 
@@ -27,11 +32,23 @@ const FormSection = styled.section`
             max-width: 380px;
         }
     }
+
+    @media screen and (min-width: 1300px) {
+        flex-grow: 1;
+        padding-top: 40px;
+        padding-left: 14.6vw;
+        align-items: center;
+    }
 `;
 
 const Main = styled.main`
     display: flex;
     flex-direction: column-reverse;
+
+    @media screen and (min-width: 1300px) {
+        flex-direction: row-reverse;
+        height: 100%;
+    }
 `;
 
 export default function App() {

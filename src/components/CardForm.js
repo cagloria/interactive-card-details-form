@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-`;
-
 const ExpDateCVCContainer = styled.div`
     display: flex;
     column-gap: 10px;
     row-gap: 21px;
     flex-wrap: wrap;
+
+    @media screen and (min-width: 1300px) {
+        column-gap: 20px;
+    }
 `;
 
 const ExpFieldset = styled.fieldset`
@@ -19,10 +17,30 @@ const ExpFieldset = styled.fieldset`
 
     select[name="exp-date-month"] {
         padding: 10px 6px 10px 11px;
+
+        @media screen and (min-width: 1300px) {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
     }
 
     select[name="exp-date-year"] {
         padding: 10px 15px 10px 11px;
+
+        @media screen and (min-width: 1300px) {
+            padding-left: 13px;
+            padding-right: 24px;
+        }
+    }
+`;
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    @media screen and (min-width: 1300px) {
+        row-gap: 29px;
     }
 `;
 
