@@ -72,12 +72,38 @@ export default function App() {
     const [expYear, setExpYear] = useState("00");
     const [cvc, setCvc] = useState("000");
 
+    function handleNameChange(value) {
+        setName(value);
+    }
+
+    function handleNumberChange(value) {
+        setNumber(value);
+    }
+
+    function handleExpMonthChange(value) {
+        setExpMonth(value);
+    }
+
+    function handleExpYearChange(value) {
+        setExpYear(value);
+    }
+
+    function handleCVCChange(value) {
+        setCvc(value);
+    }
+
     return (
         <>
             <GlobalStyle />
             <Main>
                 <FormSection>
-                    <CardForm />
+                    <CardForm
+                        onNameChange={handleNameChange}
+                        onNumberChange={handleNumberChange}
+                        onExpMonthChange={handleExpMonthChange}
+                        onExpYearChange={handleExpYearChange}
+                        onCVCChange={handleCVCChange}
+                    />
                 </FormSection>
                 <CardSection>
                     <CardFront

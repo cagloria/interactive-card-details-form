@@ -56,55 +56,66 @@ const SubmitButton = styled.button`
     margin-top: 6px;
 `;
 
-export default function CardForm() {
+function createExpMonthOptions() {
+    let months = [];
+    for (let i = 1; i < 13; i++) {
+        if (i < 10) {
+            months.push(`0${i}`);
+        } else {
+            months.push(`${i}`);
+        }
+    }
+
+    return months;
+}
+
+function createExpYearOptions() {
+    const d = new Date();
+    let currentYear = `${d.getFullYear()}`;
+    let years = [currentYear.slice(2)];
+    for (let i = 1; i < 5; i++) {
+        const year = `${d.getFullYear() + i}`;
+        years.push(year.slice(2));
+    }
+    return years;
+}
+
+export default function CardForm({
+    onNameChange,
+    onNumberChange,
+    onExpMonthChange,
+    onExpYearChange,
+    onCVCChange,
+}) {
     const [name, setName] = useState("");
     const [number, setNumber] = useState("");
     const [expMonth, setExpMonth] = useState("");
     const [expYear, setExpYear] = useState("");
     const [cvc, setCvc] = useState("");
 
-    function createExpMonthOptions() {
-        let months = [];
-        for (let i = 1; i < 13; i++) {
-            if (i < 10) {
-                months.push(`0${i}`);
-            } else {
-                months.push(`${i}`);
-            }
-        }
-
-        return months;
-    }
-
-    function createExpYearOptions() {
-        const d = new Date();
-        let currentYear = `${d.getFullYear()}`;
-        let years = [currentYear.slice(2)];
-        for (let i = 1; i < 5; i++) {
-            const year = `${d.getFullYear() + i}`;
-            years.push(year.slice(2));
-        }
-        return years;
-    }
-
     function handleNameChange(event) {
         setName(event.target.value);
+        onNameChange(event.target.value);
     }
 
     function handleNumberChange(event) {
         setNumber(event.target.value);
+        onNumberChange(event.target.value);
     }
 
     function handleExpMonthChange(event) {
         setExpMonth(event.target.value);
+        onExpMonthChange(event.target.value);
     }
 
     function handleExpYearChange(event) {
         setExpYear(event.target.value);
+        onExpYearChange(event.target.value);
     }
 
     function handleCVCChange(event) {
         setCvc(event.target.value);
+        onCVCChange(event.target.value);
     }
 
     return (
