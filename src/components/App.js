@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { colors, GlobalStyle } from "./Theme";
 import CardForm from "./CardForm";
@@ -65,6 +66,12 @@ const Main = styled.main`
 `;
 
 export default function App() {
+    const [name, setName] = useState("Jane Appleseed");
+    const [number, setNumber] = useState("0000 0000 0000 0000");
+    const [expMonth, setExpMonth] = useState("00");
+    const [expYear, setExpYear] = useState("00");
+    const [cvc, setCvc] = useState("000");
+
     return (
         <>
             <GlobalStyle />
@@ -73,8 +80,13 @@ export default function App() {
                     <CardForm />
                 </FormSection>
                 <CardSection>
-                    <CardFront />
-                    <CardBack />
+                    <CardFront
+                        number={number}
+                        holderName={name}
+                        expMonth={expMonth}
+                        expYear={expYear}
+                    />
+                    <CardBack cvc={cvc} />
                 </CardSection>
             </Main>
         </>

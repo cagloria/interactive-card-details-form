@@ -81,10 +81,14 @@ const Card = styled.div`
     }
 `;
 
-export default function CardBack() {
+export default function CardBack({ cvc }) {
     return (
         <Card>
-            <p>000</p>
+            <p>{cvc}</p>
         </Card>
     );
 }
+
+CardBack.defaultProps = {
+    cvc: "000",
+};

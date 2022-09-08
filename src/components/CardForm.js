@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const ExpDateCVCContainer = styled.div`
@@ -56,6 +57,12 @@ const SubmitButton = styled.button`
 `;
 
 export default function CardForm() {
+    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
+    const [expMonth, setExpMonth] = useState("");
+    const [expYear, setExpYear] = useState("");
+    const [cvc, setCvc] = useState("");
+
     function createExpMonthOptions() {
         let months = [];
         for (let i = 1; i < 13; i++) {
@@ -80,18 +87,46 @@ export default function CardForm() {
         return years;
     }
 
+    function handleNameChange(event) {
+        setName(event.target.value);
+    }
+
+    function handleNumberChange(event) {
+        setNumber(event.target.value);
+    }
+
+    function handleExpMonthChange(event) {
+        setExpMonth(event.target.value);
+    }
+
+    function handleExpYearChange(event) {
+        setExpYear(event.target.value);
+    }
+
+    function handleCVCChange(event) {
+        setCvc(event.target.value);
+    }
+
     return (
         <Form>
             <label>
                 Cardholder Name
-                <input type="text" placeholder="e.g. Jane Appleseed" required />
+                <input
+                    type="text"
+                    placeholder="e.g. Jane Appleseed"
+                    value={name}
+                    onChange={handleNameChange}
+                    required
+                />
             </label>
 
             <label>
                 Card Number
                 <input
-                    type="text"
+                    type="number"
                     placeholder="e.g. 1234 5678 9123 0000"
+                    value={number}
+                    onChange={handleNumberChange}
                     required
                 />
             </label>
@@ -104,8 +139,9 @@ export default function CardForm() {
                         name="exp-date-month"
                         placeholder="MM"
                         aria-label="Month"
+                        value={expMonth}
+                        onChange={handleExpMonthChange}
                         required
-                        defaultValue=""
                     >
                         <option value="" disabled hidden key="default">
                             MM
@@ -120,8 +156,9 @@ export default function CardForm() {
                         name="exp-date-year"
                         placeholder="YY"
                         aria-label="Year"
+                        value={expYear}
+                        onChange={handleExpYearChange}
                         required
-                        defaultValue=""
                     >
                         <option value="" disabled hidden key="default">
                             YY
@@ -140,6 +177,8 @@ export default function CardForm() {
                         id="card-cvc"
                         type="number"
                         placeholder="e.g. 123"
+                        value={cvc}
+                        onChange={handleCVCChange}
                         required
                     />
                 </CVCLabel>

@@ -120,19 +120,28 @@ const Card = styled.div`
     }
 `;
 
-export default function CardFront() {
+export default function CardFront({ number, holderName, expMonth, expYear }) {
     return (
         <Card>
             <LogoRow>
                 <img src={logo} alt="Card logo" height="30" width="53" />
             </LogoRow>
             <NumberRow>
-                <p>0000 0000 0000 0000</p>
+                <p>{number}</p>
             </NumberRow>
             <DetailsRow>
-                <p>Jane Appleseed</p>
-                <p>00/00</p>
+                <p>{holderName}</p>
+                <p>
+                    {expMonth}/{expYear}
+                </p>
             </DetailsRow>
         </Card>
     );
 }
+
+CardFront.defaultProps = {
+    number: "0000 0000 0000 0000",
+    holderName: "Jane Appleseed",
+    expMonth: "00",
+    expYear: "00",
+};
