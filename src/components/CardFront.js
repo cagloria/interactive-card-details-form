@@ -108,6 +108,16 @@ const Card = styled.div`
         border-radius: 12px;
         padding: 28px 32px;
     }
+
+    @media screen and (min-width: 1920px) {
+        top: 25vh;
+        left: 25vw;
+    }
+
+    @media screen and (min-width: 2400px) {
+        top: 32vh;
+        left: 29vw;
+    }
 `;
 
 export default function CardFront() {

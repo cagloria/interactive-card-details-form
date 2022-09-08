@@ -69,6 +69,16 @@ const Card = styled.div`
         height: 245px;
         border-radius: 12px;
     }
+
+    @media screen and (min-width: 1920px) {
+        top: 52vh;
+        left: 28vw;
+    }
+
+    @media screen and (min-width: 2400px) {
+        top: 50vh;
+        left: 31vw;
+    }
 `;
 
 export default function CardBack() {

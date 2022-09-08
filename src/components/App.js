@@ -23,6 +23,10 @@ const CardSection = styled.section`
         width: 33.5%;
         background-image: url(${cardSectionBGDesktop});
     }
+
+    @media screen and (min-width: 1920px) {
+        width: 40%;
+    }
 `;
 
 const FormSection = styled.section`
@@ -43,6 +47,10 @@ const FormSection = styled.section`
         padding-top: 40px;
         padding-left: 14.6vw;
         align-items: center;
+    }
+
+    @media screen and (min-width: 1920px) {
+        padding-right: 14.6vw;
     }
 `;
 
