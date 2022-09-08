@@ -4,9 +4,13 @@ import CardForm from "./CardForm";
 import CardFront from "./CardFront";
 import CardBack from "./CardBack";
 import SubmissionPage from "./SubmissionPage";
+import cardSectionBGMobile from "../assets/bg-main-mobile.png";
+import cardSectionBGDesktop from "../assets/bg-main-desktop.png";
 
 const CardSection = styled.section`
     background-color: ${colors.primary};
+    background-image: url(${cardSectionBGMobile});
+    background-size: cover;
     color: ${colors.white};
     height: 240px;
 
@@ -17,6 +21,7 @@ const CardSection = styled.section`
     @media screen and (min-width: 1300px) {
         height: 100%;
         width: 33.5%;
+        background-image: url(${cardSectionBGDesktop});
     }
 `;
 
