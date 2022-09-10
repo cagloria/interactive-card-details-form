@@ -97,6 +97,7 @@ export default function App() {
             <GlobalStyle />
             <Main>
                 <FormSection>
+                    <h1 className="hidden">Card Form</h1>
                     <CardForm
                         onNameChange={handleNameChange}
                         onNumberChange={handleNumberChange}
@@ -106,6 +107,7 @@ export default function App() {
                     />
                 </FormSection>
                 <CardSection>
+                    <h1 className="hidden">Card Details</h1>
                     <CardFront
                         number={number}
                         holderName={name}

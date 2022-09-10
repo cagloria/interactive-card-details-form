@@ -4,7 +4,7 @@ import cardFrontBG from "../assets/bg-card-front.png";
 import logo from "../assets/card-logo.svg";
 
 const LogoRow = styled.div`
-    flex: 1;
+    height: fit-content;
 
     @media screen and (min-width: 1300px) {
         img {
@@ -41,6 +41,7 @@ const DetailsRow = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-end;
     font-size: 0.55rem;
     letter-spacing: 0.08rem;
     padding-top: 16px;

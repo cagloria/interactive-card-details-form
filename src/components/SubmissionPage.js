@@ -8,7 +8,7 @@ const Container = styled.div`
     align-items: center;
 `;
 
-const Heading = styled.h1`
+const Heading = styled.p`
     margin-top: 37px;
     margin-bottom: 0;
     font-size: 1.7rem;

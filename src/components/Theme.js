@@ -100,4 +100,9 @@ export const GlobalStyle = createGlobalStyle`
         letter-spacing: 1px;
         text-align: center;
     }
+
+    .hidden {
+        position: absolute;
+        transform: translate(-100vw, -100vh);
+    }
 `;
