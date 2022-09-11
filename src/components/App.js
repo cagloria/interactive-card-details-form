@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import { colors, GlobalStyle } from "./Theme";
 import CardForm from "./CardForm";
@@ -92,31 +93,55 @@ export default function App() {
         setCvc(value);
     }
 
+    function handleReset() {
+        setName("Jane Appleseed");
+        setNumber("0000 0000 0000 0000");
+        setExpMonth("00");
+        setExpYear("00");
+        setCvc("000");
+    }
+
     return (
         <>
             <GlobalStyle />
-            <Main>
-                <FormSection>
-                    <h1 className="hidden">Card Form</h1>
-                    <CardForm
-                        onNameChange={handleNameChange}
-                        onNumberChange={handleNumberChange}
-                        onExpMonthChange={handleExpMonthChange}
-                        onExpYearChange={handleExpYearChange}
-                        onCVCChange={handleCVCChange}
-                    />
-                </FormSection>
-                <CardSection>
-                    <h1 className="hidden">Card Details</h1>
-                    <CardFront
-                        number={number}
-                        holderName={name}
-                        expMonth={expMonth}
-                        expYear={expYear}
-                    />
-                    <CardBack cvc={cvc} />
-                </CardSection>
-            </Main>
+            <BrowserRouter>
+                <Main>
+                    <FormSection>
+                        <h1 className="hidden">Card Form</h1>
+                        <Routes>
+                            <Route
+                                exact
+                                path="/"
+                                element={
+                                    <CardForm
+                                        onNameChange={handleNameChange}
+                                        onNumberChange={handleNumberChange}
+                                        onExpMonthChange={handleExpMonthChange}
+                                        onExpYearChange={handleExpYearChange}
+                                        onCVCChange={handleCVCChange}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/complete"
+                                element={
+                                    <SubmissionPage onReset={handleReset} />
+                                }
+                            />
+                        </Routes>
+                    </FormSection>
+                    <CardSection>
+                        <h1 className="hidden">Card Details</h1>
+                        <CardFront
+                            number={number}
+                            holderName={name}
+                            expMonth={expMonth}
+                            expYear={expYear}
+                        />
+                        <CardBack cvc={cvc} />
+                    </CardSection>
+                </Main>
+            </BrowserRouter>
         </>
     );
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { colors } from "./Theme";
 import iconComplete from "../assets/icon-complete.svg";
 
@@ -24,18 +25,27 @@ const Body = styled.p`
     text-align: center;
 `;
 
-const ContinueButton = styled.a`
+const ContinueButton = styled(Link)`
     margin-top: 35px;
     align-self: stretch;
 `;
 
-export default function SubmissionPage() {
+export default function SubmissionPage({ onReset }) {
+    function resetValues() {
+        onReset();
+    }
+
     return (
         <Container>
             <img src={iconComplete} alt="" />
             <Heading>Thank you!</Heading>
             <Body>We've added your card details</Body>
-            <ContinueButton className="style-link-as-button" href="">
+            <ContinueButton
+                to="/"
+                className="style-link-as-button"
+                href=""
+                onClick={resetValues}
+            >
                 Continue
             </ContinueButton>
         </Container>

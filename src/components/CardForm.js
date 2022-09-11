@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const ExpDateCVCContainer = styled.div`
@@ -93,6 +94,8 @@ export default function CardForm({
     const [expYear, setExpYear] = useState("");
     const [cvc, setCvc] = useState("");
 
+    let navigate = useNavigate();
+
     function handleNameChange(event) {
         setName(event.target.value);
         onNameChange(event.target.value);
@@ -130,6 +133,7 @@ export default function CardForm({
                 cvc: cvc,
             })
         );
+        navigate("/complete");
     }
 
     return (
