@@ -118,8 +118,22 @@ export default function CardForm({
         onCVCChange(event.target.value);
     }
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        localStorage.setItem(
+            "form-data",
+            JSON.stringify({
+                name: name,
+                number: number,
+                expMonth: expMonth,
+                expYear: expYear,
+                cvc: cvc,
+            })
+        );
+    }
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <label>
                 Cardholder Name
                 <input
