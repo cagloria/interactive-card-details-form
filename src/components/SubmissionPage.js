@@ -7,6 +7,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 `;
 
 const Heading = styled.p`
@@ -37,6 +38,7 @@ export default function SubmissionPage({ onReset }) {
 
     return (
         <Container>
+            <h1 className="hidden">Card Submission</h1>
             <img src={iconComplete} alt="" />
             <Heading>Thank you!</Heading>
             <Body>We've added your card details</Body>

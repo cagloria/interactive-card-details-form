@@ -6,6 +6,7 @@ import CardForm from "./CardForm";
 import CardFront from "./CardFront";
 import CardBack from "./CardBack";
 import SubmissionPage from "./SubmissionPage";
+import MissingPage from "./MissingPage";
 import cardSectionBGMobile from "../assets/bg-main-mobile.png";
 import cardSectionBGDesktop from "../assets/bg-main-desktop.png";
 
@@ -107,7 +108,6 @@ export default function App() {
             <BrowserRouter>
                 <Main>
                     <FormSection>
-                        <h1 className="hidden">Card Form</h1>
                         <Routes>
                             <Route
                                 exact
@@ -128,6 +128,7 @@ export default function App() {
                                     <SubmissionPage onReset={handleReset} />
                                 }
                             />
+                            <Route path="*" element={<MissingPage />} />
                         </Routes>
                     </FormSection>
                     <CardSection>

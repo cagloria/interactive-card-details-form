@@ -137,83 +137,87 @@ export default function CardForm({
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <label>
-                Cardholder Name
-                <input
-                    type="text"
-                    placeholder="e.g. Jane Appleseed"
-                    value={name}
-                    onChange={handleNameChange}
-                    required
-                />
-            </label>
+        <>
+            <h1 className="hidden">Card Form</h1>
 
-            <label>
-                Card Number
-                <input
-                    type="number"
-                    placeholder="e.g. 1234 5678 9123 0000"
-                    value={number}
-                    onChange={handleNumberChange}
-                    required
-                />
-            </label>
-            <ExpDateCVCContainer>
-                <ExpFieldset>
-                    <legend aria-label="Expiration Date (MM/YY)">
-                        Exp. Date (MM/YY)
-                    </legend>
-                    <select
-                        name="exp-date-month"
-                        placeholder="MM"
-                        aria-label="Month"
-                        value={expMonth}
-                        onChange={handleExpMonthChange}
-                        required
-                    >
-                        <option value="" disabled hidden key="default">
-                            MM
-                        </option>
-                        {createExpMonthOptions().map((val) => (
-                            <option value={val} key={val}>
-                                {val}
-                            </option>
-                        ))}
-                    </select>
-                    <select
-                        name="exp-date-year"
-                        placeholder="YY"
-                        aria-label="Year"
-                        value={expYear}
-                        onChange={handleExpYearChange}
-                        required
-                    >
-                        <option value="" disabled hidden key="default">
-                            YY
-                        </option>
-                        {createExpYearOptions().map((val) => (
-                            <option value={val} key={val}>
-                                {val}
-                            </option>
-                        ))}
-                    </select>
-                </ExpFieldset>
-
-                <CVCLabel>
-                    CVC
+            <Form onSubmit={handleSubmit}>
+                <label>
+                    Cardholder Name
                     <input
-                        id="card-cvc"
-                        type="number"
-                        placeholder="e.g. 123"
-                        value={cvc}
-                        onChange={handleCVCChange}
+                        type="text"
+                        placeholder="e.g. Jane Appleseed"
+                        value={name}
+                        onChange={handleNameChange}
                         required
                     />
-                </CVCLabel>
-            </ExpDateCVCContainer>
+                </label>
 
-            <SubmitButton type="submit">Confirm</SubmitButton>
-        </Form>
+                <label>
+                    Card Number
+                    <input
+                        type="number"
+                        placeholder="e.g. 1234 5678 9123 0000"
+                        value={number}
+                        onChange={handleNumberChange}
+                        required
+                    />
+                </label>
+                <ExpDateCVCContainer>
+                    <ExpFieldset>
+                        <legend aria-label="Expiration Date (MM/YY)">
+                            Exp. Date (MM/YY)
+                        </legend>
+                        <select
+                            name="exp-date-month"
+                            placeholder="MM"
+                            aria-label="Month"
+                            value={expMonth}
+                            onChange={handleExpMonthChange}
+                            required
+                        >
+                            <option value="" disabled hidden key="default">
+                                MM
+                            </option>
+                            {createExpMonthOptions().map((val) => (
+                                <option value={val} key={val}>
+                                    {val}
+                                </option>
+                            ))}
+                        </select>
+                        <select
+                            name="exp-date-year"
+                            placeholder="YY"
+                            aria-label="Year"
+                            value={expYear}
+                            onChange={handleExpYearChange}
+                            required
+                        >
+                            <option value="" disabled hidden key="default">
+                                YY
+                            </option>
+                            {createExpYearOptions().map((val) => (
+                                <option value={val} key={val}>
+                                    {val}
+                                </option>
+                            ))}
+                        </select>
+                    </ExpFieldset>
+
+                    <CVCLabel>
+                        CVC
+                        <input
+                            id="card-cvc"
+                            type="number"
+                            placeholder="e.g. 123"
+                            value={cvc}
+                            onChange={handleCVCChange}
+                            required
+                        />
+                    </CVCLabel>
+                </ExpDateCVCContainer>
+
+                <SubmitButton type="submit">Confirm</SubmitButton>
+            </Form>
+        </>
     );
 }
