@@ -52,6 +52,12 @@ const ExpFieldset = styled.fieldset`
     flex-direction: column;
 `;
 
+const CVCContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+`;
+
 const CVCLabel = styled.label`
     padding-bottom: 0;
     width: 0;
@@ -145,6 +151,10 @@ export default function CardForm({
         isValid: true,
         message: "",
     });
+    const [cvcValidity, setCvcValidity] = useState({
+        isValid: true,
+        message: "",
+    });
 
     let navigate = useNavigate();
 
@@ -182,12 +192,12 @@ export default function CardForm({
         } else if (value.length < 15) {
             setNumberValidity({
                 isValid: false,
-                message: "Too few characters",
+                message: "Too few characters, must be 15 to 16 characters",
             });
         } else if (value.length > 16) {
             setNumberValidity({
                 isValid: false,
-                message: "Too many characters",
+                message: "Too many characters, must be 15 to 16 characters",
             });
         } else if (!/\d+$/.test(value)) {
             setNumberValidity({
@@ -230,6 +240,29 @@ export default function CardForm({
     function handleCVCChange(event) {
         setCvc(event.target.value);
         onCVCChange(event.target.value);
+        if (!cvcValidity.isValid) {
+            setCvcValidity({ isValid: true, message: "" });
+        }
+    }
+
+    function validateCVC(event) {
+        const value = event.target.value;
+
+        if (value.length <= 0) {
+            setCvcValidity({ isValid: false, message: "Cannot be blank" });
+        } else if (value.length !== 3) {
+            setCvcValidity({
+                isValid: false,
+                message: "Must be three characters long",
+            });
+        } else if (!/\d+$/.test(value)) {
+            setCvcValidity({
+                isValid: false,
+                message: "Wrong format, numbers only",
+            });
+        } else {
+            setCvcValidity({ isValid: true, message: "" });
+        }
     }
 
     function handleSubmit(event) {
@@ -359,17 +392,29 @@ export default function CardForm({
                         ) : null}
                     </ExpFieldset>
 
-                    <CVCLabel>
-                        CVC
-                        <input
-                            id="card-cvc"
-                            type="number"
-                            placeholder="e.g. 123"
-                            value={cvc}
-                            onChange={handleCVCChange}
-                            required
-                        />
-                    </CVCLabel>
+                    <CVCContainer>
+                        <CVCLabel>
+                            CVC
+                            <input
+                                id="card-cvc"
+                                className={
+                                    cvcValidity.isValid ? "" : "invalid-input"
+                                }
+                                type="text"
+                                size={3}
+                                min={0}
+                                placeholder="e.g. 123"
+                                pattern="\d+$"
+                                value={cvc}
+                                onChange={handleCVCChange}
+                                onBlur={validateCVC}
+                                required
+                            />
+                        </CVCLabel>
+                        {cvcValidity.isValid ? null : (
+                            <ExpErrorMessage>{cvcValidity.message}</ExpErrorMessage>
+                        )}
+                    </CVCContainer>
                 </ExpDateCVCContainer>
 
                 <SubmitButton type="submit">Confirm</SubmitButton>
