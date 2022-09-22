@@ -24,7 +24,7 @@ const ExpDateCVCContainer = styled.div`
     }
 `;
 
-const ExpFieldset = styled.fieldset`
+const SelectContainer = styled.div`
     display: flex;
     column-gap: 8px;
 
@@ -46,6 +46,12 @@ const ExpFieldset = styled.fieldset`
         }
     }
 `;
+
+const ExpFieldset = styled.fieldset`
+    display: flex;
+    flex-direction: column;
+`;
+
 const CVCLabel = styled.label`
     padding-bottom: 0;
     width: 0;
@@ -66,6 +72,10 @@ const ErrorMessage = styled.p`
     @media screen and (min-width: 1300px) {
         margin-top: -23px;
     }
+`;
+
+const ExpErrorMessage = styled(ErrorMessage)`
+    margin-top: 5px;
 `;
 
 const Form = styled.form`
@@ -127,6 +137,10 @@ export default function CardForm({
         isValid: true,
         message: "",
     });
+    const [expMonthValidity, setExpMonthValidity] = useState({
+        isValid: true,
+        message: "",
+    });
 
     let navigate = useNavigate();
 
@@ -158,12 +172,8 @@ export default function CardForm({
 
     function validateNumber(event) {
         const value = event.target.value;
-        if (!/\d+$/.test(value)) {
-            setNumberValidity({
-                isValid: false,
-                message: "Wrong format, numbers only",
-            });
-        } else if (value.length <= 0) {
+
+        if (value.length <= 0) {
             setNumberValidity({ isValid: false, message: "Cannot be blank" });
         } else if (value.length < 15) {
             setNumberValidity({
@@ -175,6 +185,11 @@ export default function CardForm({
                 isValid: false,
                 message: "Too many characters",
             });
+        } else if (!/\d+$/.test(value)) {
+            setNumberValidity({
+                isValid: false,
+                message: "Wrong format, numbers only",
+            });
         } else {
             setNumberValidity({ isValid: true, message: "" });
         }
@@ -183,6 +198,16 @@ export default function CardForm({
     function handleExpMonthChange(event) {
         setExpMonth(event.target.value);
         onExpMonthChange(event.target.value);
+        if (!expMonthValidity.isValid) {
+            setExpMonthValidity({ isValid: true, message: "" });
+        }
+    }
+
+    function validateExpMonth(event) {
+        console.log(expMonth, expYear);
+        if (event.target.value.length <= 0) {
+            setExpMonthValidity({ isValid: false, message: "Cannot be blank" });
+        }
     }
 
     function handleExpYearChange(event) {
@@ -263,40 +288,53 @@ export default function CardForm({
                         <legend aria-label="Expiration Date (MM/YY)">
                             Exp. Date (MM/YY)
                         </legend>
-                        <select
-                            name="exp-date-month"
-                            placeholder="MM"
-                            aria-label="Month"
-                            value={expMonth}
-                            onChange={handleExpMonthChange}
-                            required
-                        >
-                            <option value="" disabled hidden key="default">
-                                MM
-                            </option>
-                            {createExpMonthOptions().map((val) => (
-                                <option value={val} key={val}>
-                                    {val}
+                        <SelectContainer>
+                            <select
+                                name="exp-date-month"
+                                className={
+                                    expMonthValidity.isValid
+                                        ? ""
+                                        : "invalid-input"
+                                }
+                                placeholder="MM"
+                                aria-label="Month"
+                                value={expMonth}
+                                onChange={handleExpMonthChange}
+                                onBlur={validateExpMonth}
+                                required
+                            >
+                                <option value="" disabled hidden key="default">
+                                    MM
                                 </option>
-                            ))}
-                        </select>
-                        <select
-                            name="exp-date-year"
-                            placeholder="YY"
-                            aria-label="Year"
-                            value={expYear}
-                            onChange={handleExpYearChange}
-                            required
-                        >
-                            <option value="" disabled hidden key="default">
-                                YY
-                            </option>
-                            {createExpYearOptions().map((val) => (
-                                <option value={val} key={val}>
-                                    {val}
+                                {createExpMonthOptions().map((val) => (
+                                    <option value={val} key={val}>
+                                        {val}
+                                    </option>
+                                ))}
+                            </select>
+                            <select
+                                name="exp-date-year"
+                                placeholder="YY"
+                                aria-label="Year"
+                                value={expYear}
+                                onChange={handleExpYearChange}
+                                required
+                            >
+                                <option value="" disabled hidden key="default">
+                                    YY
                                 </option>
-                            ))}
-                        </select>
+                                {createExpYearOptions().map((val) => (
+                                    <option value={val} key={val}>
+                                        {val}
+                                    </option>
+                                ))}
+                            </select>
+                        </SelectContainer>
+                        {expMonthValidity.isValid ? null : (
+                            <ExpErrorMessage>
+                                {expMonthValidity.message}
+                            </ExpErrorMessage>
+                        )}
                     </ExpFieldset>
 
                     <CVCLabel>
