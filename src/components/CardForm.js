@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { colors } from "./Theme";
+
+const GlobalFormStyle = createGlobalStyle`
+    .invalid-input {
+        border-color: ${colors.formInvalid} !important;
+        &::after {
+            content: "Test";
+            color: red;
+        }
+    }
+`;
 
 const ExpDateCVCContainer = styled.div`
     display: flex;
@@ -35,17 +46,6 @@ const ExpFieldset = styled.fieldset`
         }
     }
 `;
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-
-    @media screen and (min-width: 1300px) {
-        row-gap: 29px;
-    }
-`;
-
 const CVCLabel = styled.label`
     padding-bottom: 0;
     width: 0;
@@ -55,6 +55,32 @@ const CVCLabel = styled.label`
 
 const SubmitButton = styled.button`
     margin-top: 6px;
+`;
+
+const ErrorMessage = styled.p`
+    color: ${colors.formInvalid};
+    font-size: 0.75rem;
+    margin: -14px 0 -3px;
+    letter-spacing: 0px;
+
+    @media screen and (min-width: 1300px) {
+        margin-top: -23px;
+    }
+`;
+
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    @media screen and (min-width: 1300px) {
+        row-gap: 29px;
+        margin-top: 26vh;
+    }
+
+    @media screen and (min-width: 1920px) {
+        margin-top: 34vh;
+    }
 `;
 
 function createExpMonthOptions() {
@@ -93,12 +119,21 @@ export default function CardForm({
     const [expMonth, setExpMonth] = useState("");
     const [expYear, setExpYear] = useState("");
     const [cvc, setCvc] = useState("");
+    const [nameValidity, setNameValidity] = useState({
+        isValid: true,
+        message: "",
+    });
 
     let navigate = useNavigate();
 
     function handleNameChange(event) {
         setName(event.target.value);
         onNameChange(event.target.value);
+        if (event.target.value.length <= 0) {
+            setNameValidity({ isValid: false, message: "Cannot be blank" });
+        } else {
+            setNameValidity({ isValid: true, message: "" });
+        }
     }
 
     function handleNumberChange(event) {
@@ -138,30 +173,44 @@ export default function CardForm({
 
     return (
         <>
+            <GlobalFormStyle />
             <h1 className="hidden">Card Form</h1>
 
             <Form onSubmit={handleSubmit}>
                 <label>
                     Cardholder Name
                     <input
+                        id="card-name"
+                        className={nameValidity.isValid ? "" : "invalid-input"}
                         type="text"
                         placeholder="e.g. Jane Appleseed"
+                        minLength={1}
+                        maxLength={25}
                         value={name}
                         onChange={handleNameChange}
                         required
                     />
                 </label>
+                {nameValidity.isValid ? null : (
+                    <ErrorMessage>{nameValidity.message}</ErrorMessage>
+                )}
 
                 <label>
                     Card Number
                     <input
+                        id="card-number"
                         type="number"
                         placeholder="e.g. 1234 5678 9123 0000"
+                        minLength={15}
+                        maxLength={16}
+                        min={0}
+                        pattern="\d+$"
                         value={number}
                         onChange={handleNumberChange}
                         required
                     />
                 </label>
+
                 <ExpDateCVCContainer>
                     <ExpFieldset>
                         <legend aria-label="Expiration Date (MM/YY)">

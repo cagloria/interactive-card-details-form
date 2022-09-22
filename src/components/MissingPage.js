@@ -19,7 +19,7 @@ const Heading = styled.h1`
 
 const Body = styled.p`
     margin-top: 18px;
-    color: ${colors.gray};
+    color: ${colors.bodyText};
     font-size: 0.925rem;
     letter-spacing: 0.1rem;
     text-align: center;

@@ -49,7 +49,6 @@ const FormSection = styled.section`
         flex-grow: 1;
         padding-top: 40px;
         padding-left: 14.6vw;
-        align-items: center;
     }
 
     @media screen and (min-width: 1920px) {

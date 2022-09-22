@@ -5,9 +5,10 @@ export const colors = {
     secondary: "#6448fe",
     tertiary: "#600594",
     white: "#ffffff",
-    grayLight: "#CBCBCB",
-    gray: "#8e8593",
+    formInput: "#CBCBCB",
+    bodyText: "#8e8593",
     black: "#21092f",
+    formInvalid: "#ff5252",
 };
 
 // The value of z-index is "zIndex.foreground" or "z-index.background", with
@@ -50,15 +51,20 @@ export const GlobalStyle = createGlobalStyle`
     select {
         margin-top: 8px;
         padding: 10px 16px;
-        border: 1px solid ${colors.grayLight};
+        border: 1px solid ${colors.formInput};
         border-radius: 10px;
         font-size: 1.13rem;
         font-family: 'Space Grotesk', sans-serif;
+
+        &:hover, &:active, &:focus {
+            border-color: ${colors.secondary};
+            outline: none;
+        }
     }
 
     select {
         font-size: 1.13rem;
-        color: ${colors.grayLight};
+        color: ${colors.formInput};
 
         option {
             color: ${colors.black};
@@ -67,7 +73,7 @@ export const GlobalStyle = createGlobalStyle`
 
     input {
         &::placeholder {
-            color: ${colors.grayLight};
+            color: ${colors.formInput};
             text-transform: none;
             font-size: 1.13rem;
         }
@@ -88,6 +94,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: "Space Grotesk", sans-serif;
         font-size: 1.1rem;
         text-align: center;
+        cursor: pointer;
     }
 
     .style-link-as-button {
