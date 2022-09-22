@@ -123,12 +123,23 @@ export default function CardForm({
         isValid: true,
         message: "",
     });
+    const [numberValidity, setNumberValidity] = useState({
+        isValid: true,
+        message: "",
+    });
 
     let navigate = useNavigate();
 
     function handleNameChange(event) {
-        setName(event.target.value);
-        onNameChange(event.target.value);
+        const value = event.target.value;
+        setName(value);
+        onNameChange(value);
+        if (!nameValidity.isValid) {
+            setNameValidity({ isValid: true, message: "" });
+        }
+    }
+
+    function validateName(event) {
         if (event.target.value.length <= 0) {
             setNameValidity({ isValid: false, message: "Cannot be blank" });
         } else {
@@ -137,8 +148,36 @@ export default function CardForm({
     }
 
     function handleNumberChange(event) {
-        setNumber(event.target.value);
-        onNumberChange(event.target.value);
+        const value = event.target.value;
+        setNumber(value);
+        onNumberChange(value);
+        if (!numberValidity.isValid) {
+            setNumberValidity({ isValid: true, message: "" });
+        }
+    }
+
+    function validateNumber(event) {
+        const value = event.target.value;
+        if (!/\d+$/.test(value)) {
+            setNumberValidity({
+                isValid: false,
+                message: "Wrong format, numbers only",
+            });
+        } else if (value.length <= 0) {
+            setNumberValidity({ isValid: false, message: "Cannot be blank" });
+        } else if (value.length < 15) {
+            setNumberValidity({
+                isValid: false,
+                message: "Too few characters",
+            });
+        } else if (value.length > 16) {
+            setNumberValidity({
+                isValid: false,
+                message: "Too many characters",
+            });
+        } else {
+            setNumberValidity({ isValid: true, message: "" });
+        }
     }
 
     function handleExpMonthChange(event) {
@@ -188,6 +227,7 @@ export default function CardForm({
                         maxLength={25}
                         value={name}
                         onChange={handleNameChange}
+                        onBlur={validateName}
                         required
                     />
                 </label>
@@ -199,6 +239,9 @@ export default function CardForm({
                     Card Number
                     <input
                         id="card-number"
+                        className={
+                            numberValidity.isValid ? "" : "invalid-input"
+                        }
                         type="number"
                         placeholder="e.g. 1234 5678 9123 0000"
                         minLength={15}
@@ -207,9 +250,13 @@ export default function CardForm({
                         pattern="\d+$"
                         value={number}
                         onChange={handleNumberChange}
+                        onBlur={validateNumber}
                         required
                     />
                 </label>
+                {numberValidity.isValid ? null : (
+                    <ErrorMessage>{numberValidity.message}</ErrorMessage>
+                )}
 
                 <ExpDateCVCContainer>
                     <ExpFieldset>
