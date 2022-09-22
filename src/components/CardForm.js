@@ -141,6 +141,10 @@ export default function CardForm({
         isValid: true,
         message: "",
     });
+    const [expYearValidity, setExpYearValidity] = useState({
+        isValid: true,
+        message: "",
+    });
 
     let navigate = useNavigate();
 
@@ -204,7 +208,6 @@ export default function CardForm({
     }
 
     function validateExpMonth(event) {
-        console.log(expMonth, expYear);
         if (event.target.value.length <= 0) {
             setExpMonthValidity({ isValid: false, message: "Cannot be blank" });
         }
@@ -213,6 +216,15 @@ export default function CardForm({
     function handleExpYearChange(event) {
         setExpYear(event.target.value);
         onExpYearChange(event.target.value);
+        if (!expYearValidity.isValid) {
+            setExpYearValidity({ isValid: true, message: "" });
+        }
+    }
+
+    function validateExpYear(event) {
+        if (event.target.value.length <= 0) {
+            setExpYearValidity({ isValid: false, message: "Cannot be blank" });
+        }
     }
 
     function handleCVCChange(event) {
@@ -314,10 +326,16 @@ export default function CardForm({
                             </select>
                             <select
                                 name="exp-date-year"
+                                className={
+                                    expYearValidity.isValid
+                                        ? ""
+                                        : "invalid-input"
+                                }
                                 placeholder="YY"
                                 aria-label="Year"
                                 value={expYear}
                                 onChange={handleExpYearChange}
+                                onBlur={validateExpYear}
                                 required
                             >
                                 <option value="" disabled hidden key="default">
@@ -330,11 +348,15 @@ export default function CardForm({
                                 ))}
                             </select>
                         </SelectContainer>
-                        {expMonthValidity.isValid ? null : (
+                        {!expMonthValidity.isValid ? (
                             <ExpErrorMessage>
                                 {expMonthValidity.message}
                             </ExpErrorMessage>
-                        )}
+                        ) : !expYearValidity.isValid ? (
+                            <ExpErrorMessage>
+                                {expYearValidity.message}
+                            </ExpErrorMessage>
+                        ) : null}
                     </ExpFieldset>
 
                     <CVCLabel>
