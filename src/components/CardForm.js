@@ -13,22 +13,77 @@ const GlobalFormStyle = createGlobalStyle`
     }
 `;
 
-const ExpDateCVCContainer = styled.div`
-    display: flex;
-    column-gap: 10px;
-    row-gap: 21px;
-    flex-wrap: wrap;
+const ErrorMessage = styled.p`
+    color: ${colors.formInvalid};
+    font-size: 0.75rem;
+    margin: 10px 0 0;
+    letter-spacing: 0px;
+`;
+
+const Form = styled.form`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto);
+    grid-template-areas:
+        "na na"
+        "nu nu"
+        "ex ex"
+        "cv cv"
+        "su su";
+    row-gap: 20.5px;
+    justify-items: stretch;
+    align-items: start;
+    height: fit-content;
+
+    @media screen and (min-width: 321px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, auto);
+        grid-template-areas:
+            "na na"
+            "nu nu"
+            "ex cv"
+            "su su";
+    }
 
     @media screen and (min-width: 1300px) {
-        column-gap: 20px;
+        row-gap: 0;
+        margin-top: 26vh;
+        row-gap: 27px;
+    }
+
+    @media screen and (min-width: 1920px) {
+        margin-top: 34vh;
     }
 `;
 
-const SelectContainer = styled.div`
+const NameContainer = styled.div`
+    grid-area: na;
     display: flex;
+    flex-direction: column;
+`;
+
+const NumberContainer = styled.div`
+    grid-area: nu;
+    display: flex;
+    flex-direction: column;
+`;
+
+const ExpFieldset = styled.fieldset`
+    grid-area: ex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, auto);
     column-gap: 8px;
+    margin-right: 12px;
+
+    legend {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
 
     select[name="exp-date-month"] {
+        grid-column: 1;
+        grid-row: 2;
         padding: 10px 6px 10px 11px;
 
         @media screen and (min-width: 1300px) {
@@ -38,6 +93,8 @@ const SelectContainer = styled.div`
     }
 
     select[name="exp-date-year"] {
+        grid-column: 2;
+        grid-row: 2;
         padding: 10px 15px 10px 11px;
 
         @media screen and (min-width: 1300px) {
@@ -45,14 +102,15 @@ const SelectContainer = styled.div`
             padding-right: 24px;
         }
     }
-`;
 
-const ExpFieldset = styled.fieldset`
-    display: flex;
-    flex-direction: column;
+    ${ErrorMessage} {
+        grid-column: 1 / -1;
+        grid-row: 3;
+    }
 `;
 
 const CVCContainer = styled.div`
+    grid-area: cv;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -60,42 +118,15 @@ const CVCContainer = styled.div`
 
 const CVCLabel = styled.label`
     padding-bottom: 0;
-    width: 0;
-    min-width: 115px;
     flex-grow: 1;
 `;
 
 const SubmitButton = styled.button`
-    margin-top: 6px;
-`;
-
-const ErrorMessage = styled.p`
-    color: ${colors.formInvalid};
-    font-size: 0.75rem;
-    margin: -14px 0 -3px;
-    letter-spacing: 0px;
+    grid-area: su;
+    margin-top: 7px;
 
     @media screen and (min-width: 1300px) {
-        margin-top: -23px;
-    }
-`;
-
-const ExpErrorMessage = styled(ErrorMessage)`
-    margin-top: 5px;
-`;
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-
-    @media screen and (min-width: 1300px) {
-        row-gap: 29px;
-        margin-top: 26vh;
-    }
-
-    @media screen and (min-width: 1920px) {
-        margin-top: 34vh;
+        margin-top: 12px;
     }
 `;
 
@@ -286,136 +317,130 @@ export default function CardForm({
             <h1 className="hidden">Card Form</h1>
 
             <Form onSubmit={handleSubmit}>
-                <label>
-                    Cardholder Name
-                    <input
-                        id="card-name"
-                        className={nameValidity.isValid ? "" : "invalid-input"}
-                        type="text"
-                        placeholder="e.g. Jane Appleseed"
-                        minLength={1}
-                        maxLength={25}
-                        value={name}
-                        onChange={handleNameChange}
-                        onBlur={validateName}
-                        required
-                    />
-                </label>
-                {nameValidity.isValid ? null : (
-                    <ErrorMessage>{nameValidity.message}</ErrorMessage>
-                )}
+                <NameContainer>
+                    <label>
+                        Cardholder Name
+                        <input
+                            id="card-name"
+                            className={
+                                nameValidity.isValid ? "" : "invalid-input"
+                            }
+                            type="text"
+                            placeholder="e.g. Jane Appleseed"
+                            minLength={1}
+                            maxLength={25}
+                            value={name}
+                            onChange={handleNameChange}
+                            onBlur={validateName}
+                            required
+                        />
+                    </label>
+                    {nameValidity.isValid ? null : (
+                        <ErrorMessage>{nameValidity.message}</ErrorMessage>
+                    )}
+                </NameContainer>
 
-                <label>
-                    Card Number
-                    <input
-                        id="card-number"
+                <NumberContainer>
+                    <label>
+                        Card Number
+                        <input
+                            id="card-number"
+                            className={
+                                numberValidity.isValid ? "" : "invalid-input"
+                            }
+                            type="number"
+                            placeholder="e.g. 1234 5678 9123 0000"
+                            minLength={15}
+                            maxLength={16}
+                            min={0}
+                            pattern="\d+$"
+                            value={number}
+                            onChange={handleNumberChange}
+                            onBlur={validateNumber}
+                            required
+                        />
+                    </label>
+                    {numberValidity.isValid ? null : (
+                        <ErrorMessage>{numberValidity.message}</ErrorMessage>
+                    )}
+                </NumberContainer>
+
+                <ExpFieldset>
+                    <legend aria-label="Expiration Date (MM/YY)">
+                        Exp. Date (MM/YY)
+                    </legend>
+                    <select
+                        name="exp-date-month"
                         className={
-                            numberValidity.isValid ? "" : "invalid-input"
+                            expMonthValidity.isValid ? "" : "invalid-input"
                         }
-                        type="number"
-                        placeholder="e.g. 1234 5678 9123 0000"
-                        minLength={15}
-                        maxLength={16}
-                        min={0}
-                        pattern="\d+$"
-                        value={number}
-                        onChange={handleNumberChange}
-                        onBlur={validateNumber}
+                        placeholder="MM"
+                        aria-label="Month"
+                        value={expMonth}
+                        onChange={handleExpMonthChange}
+                        onBlur={validateExpMonth}
                         required
-                    />
-                </label>
-                {numberValidity.isValid ? null : (
-                    <ErrorMessage>{numberValidity.message}</ErrorMessage>
-                )}
+                    >
+                        <option value="" disabled hidden key="default">
+                            MM
+                        </option>
+                        {createExpMonthOptions().map((val) => (
+                            <option value={val} key={val}>
+                                {val}
+                            </option>
+                        ))}
+                    </select>
+                    <select
+                        name="exp-date-year"
+                        className={
+                            expYearValidity.isValid ? "" : "invalid-input"
+                        }
+                        placeholder="YY"
+                        aria-label="Year"
+                        value={expYear}
+                        onChange={handleExpYearChange}
+                        onBlur={validateExpYear}
+                        required
+                    >
+                        <option value="" disabled hidden key="default">
+                            YY
+                        </option>
+                        {createExpYearOptions().map((val) => (
+                            <option value={val} key={val}>
+                                {val}
+                            </option>
+                        ))}
+                    </select>
+                    {!expMonthValidity.isValid ? (
+                        <ErrorMessage>{expMonthValidity.message}</ErrorMessage>
+                    ) : !expYearValidity.isValid ? (
+                        <ErrorMessage>{expYearValidity.message}</ErrorMessage>
+                    ) : null}
+                </ExpFieldset>
 
-                <ExpDateCVCContainer>
-                    <ExpFieldset>
-                        <legend aria-label="Expiration Date (MM/YY)">
-                            Exp. Date (MM/YY)
-                        </legend>
-                        <SelectContainer>
-                            <select
-                                name="exp-date-month"
-                                className={
-                                    expMonthValidity.isValid
-                                        ? ""
-                                        : "invalid-input"
-                                }
-                                placeholder="MM"
-                                aria-label="Month"
-                                value={expMonth}
-                                onChange={handleExpMonthChange}
-                                onBlur={validateExpMonth}
-                                required
-                            >
-                                <option value="" disabled hidden key="default">
-                                    MM
-                                </option>
-                                {createExpMonthOptions().map((val) => (
-                                    <option value={val} key={val}>
-                                        {val}
-                                    </option>
-                                ))}
-                            </select>
-                            <select
-                                name="exp-date-year"
-                                className={
-                                    expYearValidity.isValid
-                                        ? ""
-                                        : "invalid-input"
-                                }
-                                placeholder="YY"
-                                aria-label="Year"
-                                value={expYear}
-                                onChange={handleExpYearChange}
-                                onBlur={validateExpYear}
-                                required
-                            >
-                                <option value="" disabled hidden key="default">
-                                    YY
-                                </option>
-                                {createExpYearOptions().map((val) => (
-                                    <option value={val} key={val}>
-                                        {val}
-                                    </option>
-                                ))}
-                            </select>
-                        </SelectContainer>
-                        {!expMonthValidity.isValid ? (
-                            <ExpErrorMessage>
-                                {expMonthValidity.message}
-                            </ExpErrorMessage>
-                        ) : !expYearValidity.isValid ? (
-                            <ExpErrorMessage>
-                                {expYearValidity.message}
-                            </ExpErrorMessage>
-                        ) : null}
-                    </ExpFieldset>
-
-                    <CVCContainer>
-                        <CVCLabel>
-                            CVC
-                            <input
-                                id="card-cvc"
-                                className={
-                                    cvcValidity.isValid ? "" : "invalid-input"
-                                }
-                                type="text"
-                                size={3}
-                                min={0}
-                                placeholder="e.g. 123"
-                                pattern="\d+$"
-                                value={cvc}
-                                onChange={handleCVCChange}
-                                onBlur={validateCVC}
-                                required
-                            />
-                        </CVCLabel>
-                        {cvcValidity.isValid ? null : (
-                            <ExpErrorMessage>{cvcValidity.message}</ExpErrorMessage>
-                        )}
-                    </CVCContainer>
-                </ExpDateCVCContainer>
+                <CVCContainer>
+                    <CVCLabel>
+                        CVC
+                        <input
+                            id="card-cvc"
+                            className={
+                                cvcValidity.isValid ? "" : "invalid-input"
+                            }
+                            type="text"
+                            size={3}
+                            min={0}
+                            placeholder="e.g. 123"
+                            pattern="\d+$"
+                            value={cvc}
+                            onChange={handleCVCChange}
+                            onBlur={validateCVC}
+                            required
+                        />
+                    </CVCLabel>
+                    {cvcValidity.isValid ? null : (
+                        <ErrorMessage>{cvcValidity.message}</ErrorMessage>
+                    )}
+                </CVCContainer>
 
                 <SubmitButton type="submit">Confirm</SubmitButton>
             </Form>

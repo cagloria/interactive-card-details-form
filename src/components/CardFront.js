@@ -32,7 +32,8 @@ const NumberRow = styled.div`
 
     @media screen and (min-width: 1300px) {
         padding-top: 61px;
-        font-size: 1.89rem;
+        font-size: 1.85rem;
+        letter-spacing: 2.5px;
     }
 `;
 
@@ -44,17 +45,14 @@ const DetailsRow = styled.div`
     align-items: flex-end;
     font-size: 0.55rem;
     letter-spacing: 0.08rem;
-    padding-top: 16px;
     text-transform: uppercase;
 
     @media screen and (min-width: 600px) {
-        padding-top: 20px;
         font-size: 0.8rem;
     }
 
     @media screen and (min-width: 1300px) {
-        padding-top: 21px;
-        font-size: 0.95rem;
+        font-size: 0.94rem;
     }
 `;
 
@@ -71,7 +69,7 @@ const Card = styled.div`
     background-size: cover;
     display: flex;
     flex-direction: column;
-    padding: 18px 21px;
+    padding: 18px 21px 21px;
     z-index: ${zIndex.foreground + zIndex.forwardIncrement};
 
     p {

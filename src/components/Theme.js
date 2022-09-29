@@ -5,7 +5,7 @@ export const colors = {
     secondary: "#6448fe",
     tertiary: "#600594",
     white: "#ffffff",
-    formInput: "#CBCBCB",
+    formInput: "#b4b4b4",
     bodyText: "#8e8593",
     black: "#21092f",
     formInvalid: "#ff5252",
