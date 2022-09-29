@@ -198,14 +198,6 @@ export default function CardForm({
         }
     }
 
-    function validateName(event) {
-        if (event.target.value.length <= 0) {
-            setNameValidity({ isValid: false, message: "Cannot be blank" });
-        } else {
-            setNameValidity({ isValid: true, message: "" });
-        }
-    }
-
     function handleNumberChange(event) {
         const value = event.target.value;
         setNumber(value);
@@ -218,22 +210,25 @@ export default function CardForm({
     function validateNumber(event) {
         const value = event.target.value;
 
-        if (value.length <= 0) {
-            setNumberValidity({ isValid: false, message: "Cannot be blank" });
-        } else if (value.length < 15) {
+        // Test if only numbers
+        if (value.length > 0 && !/^\d+$/.test(value)) {
+            setNumberValidity({
+                isValid: false,
+                message: "Wrong format, numbers only",
+            });
+        }
+        // Test if less than 15 characters
+        else if (value.length > 0 && value.length < 15) {
             setNumberValidity({
                 isValid: false,
                 message: "Too few characters, must be 15 to 16 characters",
             });
-        } else if (value.length > 16) {
+        }
+        // Test if greater than 16 characters
+        else if (value.length > 16) {
             setNumberValidity({
                 isValid: false,
                 message: "Too many characters, must be 15 to 16 characters",
-            });
-        } else if (!/\d+$/.test(value)) {
-            setNumberValidity({
-                isValid: false,
-                message: "Wrong format, numbers only",
             });
         } else {
             setNumberValidity({ isValid: true, message: "" });
@@ -248,23 +243,11 @@ export default function CardForm({
         }
     }
 
-    function validateExpMonth(event) {
-        if (event.target.value.length <= 0) {
-            setExpMonthValidity({ isValid: false, message: "Cannot be blank" });
-        }
-    }
-
     function handleExpYearChange(event) {
         setExpYear(event.target.value);
         onExpYearChange(event.target.value);
         if (!expYearValidity.isValid) {
             setExpYearValidity({ isValid: true, message: "" });
-        }
-    }
-
-    function validateExpYear(event) {
-        if (event.target.value.length <= 0) {
-            setExpYearValidity({ isValid: false, message: "Cannot be blank" });
         }
     }
 
@@ -279,36 +262,82 @@ export default function CardForm({
     function validateCVC(event) {
         const value = event.target.value;
 
-        if (value.length <= 0) {
-            setCvcValidity({ isValid: false, message: "Cannot be blank" });
-        } else if (value.length !== 3) {
-            setCvcValidity({
-                isValid: false,
-                message: "Must be three characters long",
-            });
-        } else if (!/\d+$/.test(value)) {
-            setCvcValidity({
-                isValid: false,
-                message: "Wrong format, numbers only",
-            });
+        if (value.length > 0) {
+            // Test if exactly three characters
+            if (value.length !== 3) {
+                setCvcValidity({
+                    isValid: false,
+                    message: "Must be three characters long",
+                });
+            }
+            // Test if only numbers
+            else if (!/^\d+$/.test(value)) {
+                setCvcValidity({
+                    isValid: false,
+                    message: "Wrong format, numbers only",
+                });
+            }
         } else {
             setCvcValidity({ isValid: true, message: "" });
         }
     }
 
+    function containsEmptyFields() {
+        // Check individual fields
+        if (name.length <= 0) {
+            setNameValidity({ isValid: false, message: "Cannot be blank" });
+        }
+        if (number.length <= 0) {
+            setNumberValidity({ isValid: false, message: "Cannot be blank" });
+        }
+        if (expMonth.length <= 0) {
+            setExpMonthValidity({ isValid: false, message: "Cannot be blank" });
+        }
+        if (expYear.length <= 0) {
+            setExpYearValidity({ isValid: false, message: "Cannot be blank" });
+        }
+        if (cvc.length <= 0) {
+            setCvcValidity({ isValid: false, message: "Cannot be blank" });
+        }
+
+        // Check all fields
+        if (
+            name.length > 0 &&
+            number.length > 0 &&
+            expMonth.length > 0 &&
+            expYear.length > 0 &&
+            cvc.length > 0
+        ) {
+            return true;
+        }
+        return false;
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
-        localStorage.setItem(
-            "form-data",
-            JSON.stringify({
-                name: name,
-                number: number,
-                expMonth: expMonth,
-                expYear: expYear,
-                cvc: cvc,
-            })
-        );
-        navigate("/complete");
+        if (!containsEmptyFields()) {
+            return false;
+        } else if (
+            nameValidity.isValid > 0 &&
+            numberValidity.isValid > 0 &&
+            expMonthValidity.isValid > 0 &&
+            expYearValidity.isValid > 0 &&
+            cvcValidity.isValid > 0
+        ) {
+            localStorage.setItem(
+                "form-data",
+                JSON.stringify({
+                    name: name,
+                    number: number,
+                    expMonth: expMonth,
+                    expYear: expYear,
+                    cvc: cvc,
+                })
+            );
+            navigate("/complete");
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -316,7 +345,7 @@ export default function CardForm({
             <GlobalFormStyle />
             <h1 className="hidden">Card Form</h1>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} noValidate>
                 <NameContainer>
                     <label>
                         Cardholder Name
@@ -331,7 +360,6 @@ export default function CardForm({
                             maxLength={25}
                             value={name}
                             onChange={handleNameChange}
-                            onBlur={validateName}
                             required
                         />
                     </label>
@@ -378,7 +406,6 @@ export default function CardForm({
                         aria-label="Month"
                         value={expMonth}
                         onChange={handleExpMonthChange}
-                        onBlur={validateExpMonth}
                         required
                     >
                         <option value="" disabled hidden key="default">
@@ -399,7 +426,6 @@ export default function CardForm({
                         aria-label="Year"
                         value={expYear}
                         onChange={handleExpYearChange}
-                        onBlur={validateExpYear}
                         required
                     >
                         <option value="" disabled hidden key="default">
@@ -426,7 +452,7 @@ export default function CardForm({
                             className={
                                 cvcValidity.isValid ? "" : "invalid-input"
                             }
-                            type="text"
+                            type="number"
                             size={3}
                             min={0}
                             placeholder="e.g. 123"
